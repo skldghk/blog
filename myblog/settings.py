@@ -55,7 +55,7 @@ DATABASES = {
         'NAME': 'mydatabase',
         'USER': 'root',
         'PASSWORD': 'As31882773@@',
-        'HOST': 'localhost',
+        'HOST': 'svc.sel5.cloudtype.app:31033',
         'PORT': '3306',
     }
 }
