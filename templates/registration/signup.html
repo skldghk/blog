@@ -1,0 +1,67 @@
+<!-- templates/registration/signup.html -->
+{% extends "base.html" %}
+
+{% block title %}회원 가입{% endblock %}
+
+{% block content %}
+  <div class="center">
+    <h2>회원 가입</h2>
+    <form method="post" class="form-signup">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div>
+        {{ form.username.label_tag }}<br>
+        {{ form.username }}<br>
+        <small>{{ form.username.help_text }}</small>
+      </div>
+      <div>
+        {{ form.password1.label_tag }}<br>
+        {{ form.password1 }}<br>
+        <small>{{ form.password1.help_text|safe }}</small>
+      </div>
+      <div>
+        {{ form.password2.label_tag }}<br>
+        {{ form.password2 }}<br>
+        <small>{{ form.password2.help_text }}</small>
+      </div>
+      <button type="submit" class="btn">회원 가입</button>
+    </form>
+  </div>
+{% endblock %}
+
+{% block extra_style %}
+  <style>
+    .center {
+      width: 300px;
+      margin: auto;
+      padding: 2em;
+      background: #f7f7f7;
+      box-shadow: 0 0 1em #ccc;
+      border-radius: 5px;
+    }
+    .form-signup {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-signup div {
+      margin-bottom: 1em;
+    }
+    .form-signup input {
+      margin-bottom: 0.5em;
+      padding: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 0.7em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+{% endblock %}

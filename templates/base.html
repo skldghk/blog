@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}내 블로그{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: #fff;
+            color: #000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        nav {
+            display: flex;
+            justify-content: flex-end; /* 오른쪽 정렬 */
+            width: 100%;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: right;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a, nav ul li button {
+            background: #fff;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        nav ul li button {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #333;
+        }
+        nav ul li button:hover, nav ul li a:hover {
+            background: #f0f0f0;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .post-create-button {
+            margin-top: 10px; /* 헤더 바로 아래에 위치하도록 여백 조정 */
+            display: flex;
+            justify-content: flex-end; /* 오른쪽 정렬 */
+            width: calc(100% - 40px); /* 전체 너비에서 좌우 패딩을 뺀 값 */
+            padding-right: 20px; /* 오른쪽 패딩 추가 */
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 10px; /* 살짝 왼쪽으로 이동 */
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .pagination a, .pagination span {
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+        .pagination .current {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+    </style>          
+    {% block extra_style %}
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li>환영합니다, {{ user.username }}!</li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">로그 아웃</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">로그인</a></li>
+                    <li><a href="{% url 'signup' %}">회원 가입</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    {% if user.is_authenticated and request.resolver_match.url_name != 'post_detail' %}
+        <div class="post-create-button">
+            <a href="{% url 'post_create' %}" class="btn">게시글 작성</a>
+        </div>
+    {% endif %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

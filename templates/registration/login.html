@@ -1,0 +1,49 @@
+<!-- templates/registration/login.html -->
+{% extends "base.html" %}
+
+{% block title %}로그인{% endblock %}
+
+{% block content %}
+  <div class="center">
+    <h2>로그인</h2>
+    <form method="post" class="form-login">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn">로그인</button>
+    </form>
+  </div>
+{% endblock %}
+
+{% block extra_style %}
+  <style>
+    .center {
+      width: 300px;
+      margin: auto;
+      padding: 2em;
+      background: #f7f7f7;
+      box-shadow: 0 0 1em #ccc;
+      border-radius: 5px;
+    }
+    .form-login {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-login input {
+      margin-bottom: 1em;
+      padding: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 0.7em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+{% endblock %}

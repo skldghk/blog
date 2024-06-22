@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <div class="post-header">
+        <h1>{{ post.title }}</h1>
+        <div class="post-meta">
+            <span>작성자: {{ post.author }}</span>
+            <span>작성일: {{ post.created_at|date:"Y.m.d" }}</span>
+            <span>조회수: {{ post.views }}</span>
+            <span>댓글수: {{ post.comments.count }}</span>
+            <button onclick="copyUrl()">URL 복사</button>
+        </div>
+    </div>
+    <div class="post-content">
+        {{ post.content }}
+    </div>
+    <script>
+        function copyUrl() {
+            var dummy = document.createElement('input'),
+            text = window.location.href;
+
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            alert('URL이 복사되었습니다.');
+        }
+    </script>
+<style>
+    .post-detail {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .post-header {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        margin-top: -500px;
+    }
+    .post-header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+    .post-header p {
+        margin: 0;
+        color: #666;
+        font-size: 14px;
+    }
+    .post-content {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+</style>
+{% endblock %}
+
+{% block post_create_button %}
+{% endblock %}
